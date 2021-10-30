@@ -1,12 +1,13 @@
-import 'package:bim_calculator/result_page.dart';
-import 'package:bim_calculator/reusableCard.dart';
-import 'package:bim_calculator/roundIconButton.dart';
+import 'package:bim_calculator/Screens/result_page.dart';
+import 'package:bim_calculator/Components/reusableCard.dart';
+import 'package:bim_calculator/Components/roundIconButton.dart';
+import 'package:bim_calculator/calculator_brain.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'bottom_button.dart';
-import 'constans.dart';
-import 'iconContent.dart';
+import '../Components/bottom_button.dart';
+import '../constans.dart';
+import '../Components/iconContent.dart';
 
 enum Gender { male, female }
 
@@ -20,7 +21,7 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   Gender? selectedGender;
   int height = 180;
-  int weight = 55;
+  double weight = 55;
   int age = 18;
 
   // Color maleCardColor = inActiveCardColor;
@@ -246,8 +247,19 @@ class _InputPageState extends State<InputPage> {
               ),
               BottomButton(
                 ontap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Resultpage()));
+                  CalculatorBrain calculatorBrain =
+                      CalculatorBrain(height: height, weight: weight);
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Resultpage(
+                        bmiResult: calculatorBrain.calculateBMI(),
+                        interpretation: calculatorBrain.getInterpretation(),
+                        resultText: calculatorBrain.getResult(),
+                      ),
+                    ),
+                  );
                 },
                 buttonTitle: 'CALCULATE',
               ),

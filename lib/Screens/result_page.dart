@@ -1,11 +1,17 @@
-import 'package:bim_calculator/bottom_button.dart';
-import 'package:bim_calculator/reusableCard.dart';
+import 'package:bim_calculator/Components/bottom_button.dart';
+import 'package:bim_calculator/Components/reusableCard.dart';
 import 'package:flutter/material.dart';
 
-import 'constans.dart';
+import '../constans.dart';
 
 class Resultpage extends StatelessWidget {
-  const Resultpage({Key? key}) : super(key: key);
+  Resultpage(
+      {required this.bmiResult,
+      required this.resultText,
+      required this.interpretation});
+  final String? bmiResult;
+  final String? resultText;
+  final String? interpretation;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +28,7 @@ class Resultpage extends StatelessWidget {
             child: Container(
               child: Center(
                 child: Text(
-                  'Your Result',
+                  "Your Result",
                   style: titleTextStyle,
                 ),
               ),
@@ -37,15 +43,15 @@ class Resultpage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Normal',
+                    resultText!,
                     style: resultTextStyle,
                   ),
                   Text(
-                    '18.3',
+                    bmiResult!,
                     style: BMITextStyle,
                   ),
                   Text(
-                    'Your BMI result is quite low, you should eat more',
+                    interpretation!,
                     textAlign: TextAlign.center,
                     style: BMIBodyTextStyle,
                   ),

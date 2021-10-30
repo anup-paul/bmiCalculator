@@ -1,4 +1,4 @@
-import 'package:bim_calculator/input_page.dart';
+import 'package:bim_calculator/Screens/input_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
