@@ -1,7 +1,10 @@
+import 'package:bim_calculator/result_page.dart';
 import 'package:bim_calculator/reusableCard.dart';
+import 'package:bim_calculator/roundIconButton.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'bottom_button.dart';
 import 'constans.dart';
 import 'iconContent.dart';
 
@@ -17,6 +20,8 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   Gender? selectedGender;
   int height = 180;
+  int weight = 55;
+  int age = 18;
 
   // Color maleCardColor = inActiveCardColor;
   // Color femaleCardColor = inActiveCardColor;
@@ -114,17 +119,29 @@ class _InputPageState extends State<InputPage> {
                           ),
                         ],
                       ),
-                      Slider(
-                        value: height.toDouble(),
-                        min: 120.00,
-                        max: 250.00,
-                        activeColor: Color(0XFFFB1555),
-                        inactiveColor: Color(0XFF8D8E98),
-                        onChanged: (double newValue) {
-                          setState(() {
-                            height = newValue.round();
-                          });
-                        },
+                      SliderTheme(
+                        data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: Colors.white,
+                          inactiveTrackColor: Color(0xFF8D8E98),
+                          thumbColor: Color(0XFFFB1555),
+                          overlayColor: Color(0x29EB1555),
+                          thumbShape:
+                              RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                          overlayShape:
+                              RoundSliderOverlayShape(overlayRadius: 30.0),
+                        ),
+                        child: Slider(
+                          value: height.toDouble(),
+                          min: 120.00,
+                          max: 250.00,
+                          // activeColor: Color(0XFFFB1555),
+                          // inactiveColor: Color(0XFF8D8E98),
+                          onChanged: (double newValue) {
+                            setState(() {
+                              height = newValue.round();
+                            });
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -136,23 +153,103 @@ class _InputPageState extends State<InputPage> {
                     Expanded(
                       child: ReusableCard(
                         colour: activeCardColor,
+                        cardChild: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Weight',
+                              style: labelTextStyle,
+                            ),
+                            Text(
+                              weight.toString(),
+                              style: numberTextStyle,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                RoundIconButton(
+                                  icon: FontAwesomeIcons.minus,
+                                  onPressed: () {
+                                    setState(
+                                      () {
+                                        weight--;
+                                      },
+                                    );
+                                  },
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                RoundIconButton(
+                                  icon: FontAwesomeIcons.plus,
+                                  onPressed: () {
+                                    setState(() {
+                                      weight++;
+                                    });
+                                  },
+                                ),
+                                // FloatingActionButton(
+                                //   onPressed: () {},
+                                //   child: Icon(Icons.add),
+                                //   backgroundColor: Color(0XFF4C4F5F),
+                                // ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     Expanded(
                       child: ReusableCard(
                         colour: activeCardColor,
+                        cardChild: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'AGE',
+                              style: labelTextStyle,
+                            ),
+                            Text(
+                              age.toString(),
+                              style: numberTextStyle,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                RoundIconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      age--;
+                                    });
+                                  },
+                                  icon: FontAwesomeIcons.minus,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                RoundIconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      age++;
+                                    });
+                                  },
+                                  icon: FontAwesomeIcons.plus,
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-              Container(
-                height: buttomContainerHeight,
-                margin: EdgeInsets.all(10.0),
-                decoration: BoxDecoration(
-                  color: buttomContainerColor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
+              BottomButton(
+                ontap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Resultpage()));
+                },
+                buttonTitle: 'CALCULATE',
               ),
             ],
           )),
